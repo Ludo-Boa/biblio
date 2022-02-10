@@ -1,2 +1,3 @@
 env/ 
 *.sqlite3 
+locallibrary/locallibrary/settings.py
