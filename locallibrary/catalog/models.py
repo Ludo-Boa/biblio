@@ -42,6 +42,13 @@ class Book(models.Model):
     # Comme la classe d'objets Genre a été définit précédemment, nous pouvons manipuler l'objet.
     genre = models.ManyToManyField(Genre, help_text='Sélectionnez un genre pour ce livre')
 
+    def display_genre(self):
+        """Créez une chaîne pour le Genre. Ceci est nécessaire pour afficher le genre dans Admin."""
+        return ', '.join(genre.name for genre in self.genre.all()[:3])
+
+    display_genre.short_description = 'Genre'
+
+
     def __str__(self):
         """Fonction requise par Django pour manipuler les objets Book dans la base de données."""
         return self.title
@@ -68,6 +75,7 @@ class BookInstance(models.Model):
     )
 
     status = models.CharField(
+        verbose_name="Statut",
         max_length=1,
         choices=LOAN_STATUS,
         blank=True,
